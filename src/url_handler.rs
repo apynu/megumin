@@ -6,7 +6,7 @@ use std::hash::{Hash, Hasher, DefaultHasher};
 #[derive(Hash, PartialEq, Eq)]
 pub struct Url{
     pub url: String,
-    pub hash: u64,
+    pub urlhash: u64,
 }
 
 impl Url{
@@ -17,9 +17,12 @@ impl Url{
     }
     
     /// creates the hash of the saved url
-    pub fn create_hash(&self){
+    pub fn create_hash(mut self){
         let mut default_hasher: DefaultHasher = DefaultHasher::new();
-        
+
+        self.hash(&mut default_hasher); 
+
+        self.urlhash = default_hasher.finish();
     } 
 }
 
@@ -27,7 +30,7 @@ impl Default for Url{
     fn default() -> Self {
         Url{
             url: "".to_string(),
-            hash: 0,
+            urlhash: 0,
         }
     }
 }

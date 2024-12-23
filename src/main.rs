@@ -15,6 +15,6 @@ fn main() {
     st_test_url_1.hash(&mut o_default_hasher_1);
     st_test_url_2.hash(&mut o_default_hasher_2);
     
-    st_test_url_1.hash = o_default_hasher_1.finish(); 
-    st_test_url_2.hash = o_default_hasher_2.finish(); 
+    st_test_url_1.urlhash = o_default_hasher_1.finish(); 
+    st_test_url_2.urlhash = o_default_hasher_2.finish(); 
 }
