@@ -3,6 +3,7 @@ url_shortener that i used to get back into rust
 
 ## TODO:
 - [x] hash urls
+- [ ] before continuing we need to write some tests, because the interface seems bad designed
 - [ ] csv file handling
 - [ ] webserver/redirectserver
 - [ ] website
