@@ -64,9 +64,8 @@ impl<'a> UrlCsvFile<'a>{
             let linevec: Vec<&str> = line.split(',').collect();
             self.url_hashes.push(Cow::Owned(linevec[0].to_string()));
 
-            //TODO: linevec[1] will have a newline char at the end of the string,
-            //      this needs to be removed befor saving
-            self.url_plaintext.push(Cow::Owned(linevec[1].to_string()));
+            // remove ending new line char bevore further processing
+            self.url_plaintext.push(Cow::Owned(linevec[1].trim().to_string()));
         }
     }
 }

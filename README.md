@@ -6,7 +6,7 @@ url_shortener that i used to get back into rust
 - [ ] csv file handling
 - [ ] webserver/redirectserver
 - [ ] website
-- [ ] linevec[1] will have a newline char at the end of the string, this needs to be removed befor saving
+- [x] linevec[1] will have a newline char at the end of the string, this needs to be removed befor saving
 
 ## basic program flow
 - give url in webview
