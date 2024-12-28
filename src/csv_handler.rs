@@ -1,9 +1,9 @@
 //! Handles csv file input and output
 
-use crate::url_handler::Url;
+//use crate::url_handler::Url;
 use std::borrow::Cow;
-use std::fs::{self, File};
-use std::io::{BufRead, BufReader, Read, Write};
+use std::fs::File;
+use std::io::{BufRead, BufReader, Write};
 use std::vec;
 
 /// struct that contains the properties of the csv file that contains the url hashes
