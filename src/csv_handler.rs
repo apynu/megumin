@@ -1,8 +1,8 @@
 //! Handles csv file input and output
 
 //use crate::url_handler::Url;
-use std::borrow::Cow;
-use std::fs::File;
+use crate::url_handler::Url;
+use std::fs::{read_to_string, File, OpenOptions};
 use std::io::{BufRead, BufReader, Write};
 use std::vec;
 
@@ -11,8 +11,7 @@ use std::vec;
 /// content the content of the file
 pub struct UrlCsvFile<'a> {
     pub name: &'a str,
-    pub url_hashes: Vec<Cow<'a, str>>,
-    pub url_plaintext: Vec<Cow<'a, str>>,
+    pub urls: Vec<Url>,
     file: Option<File>,
 }
 
@@ -31,66 +30,65 @@ impl<'a> UrlCsvFile<'a> {
     }
 
     /// creates the csv file
-    pub fn create(&mut self) -> Result<bool, std::io::Error> {
-        // check if file exists
-        self.file = match File::open(self.name) {
-            Ok(file) => Some(file),
-            // if not create and open it
-            Err(_) => {
-                File::create(self.name)?;
-                Some(File::open(self.name)?)
-            }
-        };
-
-        Ok(true)
+    pub fn create(&mut self) {
+        //TODO: this is not fine, pls handle that error correctly
+        self.file = Some(
+            OpenOptions::new()
+                .read(true)
+                .write(true)
+                .create(true)
+                .truncate(false)
+                .open(self.name)
+                .unwrap(),
+        );
     }
 
     /// writes list of urls and url hashes to the csv file
     pub fn write_url(&mut self) {
-        // file should already exist
+        // check if file descriptor exists
         let mut file = match &self.file {
             Some(file) => file,
-            None => panic!(
-                "Error: please call 'create' first before trying to write to a non existing file"
-            ),
+            None => panic!("please call 'create' before trying to write or read the csv data file"),
         };
 
-        // combine every element from url_hashes and url_plaintext, split by a ','
+        // prepare urls field for writing to file
         let contents: Vec<String> = self
-            .url_hashes
+            .urls
             .iter()
-            .zip(self.url_plaintext.iter())
-            .map(|(a, b)| format!("{},{}", a, b))
+            .map(|url| {
+                format! {"{}, {}\n", url.urlhash, url.url}
+            })
             .collect();
 
         for line in contents {
-            // should be able to write file without problems
-            writeln!(file, "{line}").unwrap();
+            file.write_all(line.as_bytes()).unwrap();
         }
     }
 
     /// reads the file and fills the url fields of the struct
     pub fn read_url(&mut self) {
-        // file should already exist
+        // check if file descriptor already exists
         let file = match &self.file {
             Some(file) => file,
-            None => panic!(
-                "Error: please call 'create' first before trying to read from a non existing file"
-            ),
+            None => panic!("please call 'create' before trying to write or read the csv data file"),
         };
 
-        let contents = BufReader::new(file);
+        // before reading, clear memory, so that stuff is overwritten instead of appended
+        self.urls.clear();
 
+        //let contents = BufReader::new(file);
+        
         // parse csv file
-        for line in contents.lines() {
-            let line = line.expect("Error: line could not be read");
+        for line in read_to_string(self.name).unwrap().lines() {
+            //let line = line.expect("Error: line could not be read");
 
             let linevec: Vec<&str> = line.split(',').collect();
-            self.url_hashes.push(Cow::Owned(linevec[0].to_string()));
 
             // remove ending new line char bevore further processing
-            self.url_plaintext
-                .push(Cow::Owned(linevec[1].trim().to_string()));
+            self.urls.push(Url {
+                urlhash: linevec[0].to_string(),
+                url: linevec[1].trim().to_string(),
+            });
         }
     }
 }
@@ -100,8 +98,7 @@ impl Default for UrlCsvFile<'_> {
     fn default() -> Self {
         UrlCsvFile {
             name: "url_hash_data.csv",
-            url_hashes: vec![Cow::Borrowed("")],
-            url_plaintext: vec![Cow::Borrowed("")],
+            urls: vec![],
             file: None,
         }
     }

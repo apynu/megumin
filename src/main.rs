@@ -1,9 +1,8 @@
-pub mod csv_handler;
-pub mod url_handler;
-
-use std::hash::{DefaultHasher, Hash, Hasher};
+//use std::hash::{DefaultHasher, Hash, Hasher};
+//use url_shortener::url_handler;
 
 fn main() {
+    /*
     // create new hasher
     let mut o_default_hasher_1 = DefaultHasher::new();
     let mut o_default_hasher_2 = DefaultHasher::new();
@@ -17,4 +16,5 @@ fn main() {
 
     st_test_url_1.urlhash = o_default_hasher_1.finish();
     st_test_url_2.urlhash = o_default_hasher_2.finish();
+    */
 }
