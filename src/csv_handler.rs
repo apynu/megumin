@@ -77,7 +77,7 @@ impl<'a> UrlCsvFile<'a> {
         self.urls.clear();
 
         //let contents = BufReader::new(file);
-        
+
         // parse csv file
         for line in read_to_string(self.name).unwrap().lines() {
             //let line = line.expect("Error: line could not be read");

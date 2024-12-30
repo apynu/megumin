@@ -8,7 +8,7 @@ mod tests {
     #[test]
     fn test_csv_handler() {
         let mut csv_file = UrlCsvFile::new(Some("test.csv"));
-        
+
         // get file discriptor
         csv_file.create();
 
