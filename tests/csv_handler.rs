@@ -30,24 +30,25 @@ mod tests {
 
         assert_eq!(csv_file.urls[1].url, "https://github.com".to_string());
     }
-    
+
     #[test]
-    fn writes_nothing_back_if_no_new_data_is_added(){
-        let mut csv_file = UrlCsvFile::new(Some("./tests/writes_nothing_back_if_no_new_data_is_added.csv"));
+    fn writes_nothing_back_if_no_new_data_is_added() {
+        let mut csv_file = UrlCsvFile::new(Some(
+            "./tests/writes_nothing_back_if_no_new_data_is_added.csv",
+        ));
 
         // get file discriptor
         csv_file.create();
-        
+
         csv_file.read_url();
 
         assert_eq!(csv_file.urls[0].url, "https://google.com".to_string());
 
         // write urls vector to file
         csv_file.write_url();
-        
+
         csv_file.read_url();
-        
+
         assert_eq!(csv_file.urls.len(), 1);
     }
 }
-

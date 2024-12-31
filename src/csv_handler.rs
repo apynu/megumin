@@ -38,7 +38,7 @@ impl<'a> UrlCsvFile<'a> {
                 .write(true)
                 .create(true)
                 //INFO: this option needs to be false, because if we read and the file is truncated to length 0
-                //      when opened, then there is no data to be read, meaning there is no data to be written 
+                //      when opened, then there is no data to be read, meaning there is no data to be written
                 //      back later
                 .truncate(false)
                 .open(self.name)
