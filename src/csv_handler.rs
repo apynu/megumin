@@ -37,6 +37,9 @@ impl<'a> UrlCsvFile<'a> {
                 .read(true)
                 .write(true)
                 .create(true)
+                //INFO: this option needs to be false, because if we read and the file is truncated to length 0
+                //      when opened, then there is no data to be read, meaning there is no data to be written 
+                //      back later
                 .truncate(false)
                 .open(self.name)
                 .unwrap(),
@@ -56,7 +59,7 @@ impl<'a> UrlCsvFile<'a> {
             .urls
             .iter()
             .map(|url| {
-                format! {"{}, {}\n", url.urlhash, url.url}
+                format! {"{},{}\n", url.urlhash, url.url}
             })
             .collect();
 
