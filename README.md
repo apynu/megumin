@@ -7,7 +7,7 @@ url_shortener that i used to get back into rust
 
 - [x] hash urls
 - [x] before continuing we need to write some tests, because the interface seems bad designed
-- [ ] csv file handling
+- [x] csv file handling
 - [ ] webserver/redirectserver
 - [ ] website
 - [x] linevec[1] will have a newline char at the end of the string, this needs to be removed befor saving
