@@ -5,7 +5,8 @@ mod tests {
 
     #[test]
     fn reads_and_writes_data_to_file() {
-        let mut csv_file = UrlCsvFile::new(Some("./tests/reads_and_writes_data_to_file.csv"));
+        let mut csv_file =
+            UrlCsvFile::new(Some("./tests/test_files/reads_and_writes_data_to_file.csv"));
 
         // get file discriptor
         csv_file.create();
@@ -34,7 +35,7 @@ mod tests {
     #[test]
     fn writes_nothing_back_if_no_new_data_is_added() {
         let mut csv_file = UrlCsvFile::new(Some(
-            "./tests/writes_nothing_back_if_no_new_data_is_added.csv",
+            "./tests/test_files/writes_nothing_back_if_no_new_data_is_added.csv",
         ));
 
         // get file discriptor

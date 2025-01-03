@@ -1,20 +1,42 @@
-//use std::hash::{DefaultHasher, Hash, Hasher};
-//use url_shortener::url_handler;
+use url_shortener::csv_handler::UrlCsvFile;
 
-fn main() {
-    /*
-    // create new hasher
-    let mut o_default_hasher_1 = DefaultHasher::new();
-    let mut o_default_hasher_2 = DefaultHasher::new();
+use actix_web::{
+    get,
+    web::{self, redirect},
+    App, HttpServer, Responder,
+};
 
-    let mut st_test_url_1: url_handler::Url = url_handler::builder("www.google.com".to_string());
-    let mut st_test_url_2: url_handler::Url = url_handler::builder("www.github.com".to_string());
+#[get("/")]
+async fn index() -> impl Responder {
+    "Hello, World!"
+}
 
-    // create hash
-    st_test_url_1.hash(&mut o_default_hasher_1);
-    st_test_url_2.hash(&mut o_default_hasher_2);
+#[get("/{url_hash}")]
+async fn redirecter(url_hash: web::Path<String>) -> impl Responder {
+    let mut redirect_url = String::new();
 
-    st_test_url_1.urlhash = o_default_hasher_1.finish();
-    st_test_url_2.urlhash = o_default_hasher_2.finish();
-    */
+    let mut csv_file = UrlCsvFile::new(None);
+
+    // get file descriptor
+    csv_file.create();
+
+    csv_file.read_url();
+
+    for url in csv_file.urls {
+        if url.urlhash == format!("{}", url_hash) {
+            redirect_url = url.url;
+        }
+    }
+
+    redirect(format!("/{}", &url_hash), redirect_url)
+}
+
+#[actix_web::main]
+async fn main() {
+    HttpServer::new(|| App::new().service(index).service(redirecter))
+        .bind(("localhost", 8080))
+        .unwrap()
+        .run()
+        .await
+        .unwrap()
 }

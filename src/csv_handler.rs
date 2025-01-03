@@ -100,7 +100,7 @@ impl<'a> UrlCsvFile<'a> {
 impl Default for UrlCsvFile<'_> {
     fn default() -> Self {
         UrlCsvFile {
-            name: "url_hash_data.csv",
+            name: "./url_hash_data.csv",
             urls: vec![],
             file: None,
         }
