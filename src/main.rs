@@ -1,4 +1,5 @@
-use url_shortener::csv_handler::UrlCsvFile;
+use megumin::csv_handler::UrlCsvFile;
+use megumin::url_handler::Url;
 
 use actix_web::{
     get,
@@ -8,17 +9,27 @@ use actix_web::{
 
 #[get("/")]
 async fn index() -> impl Responder {
-    "Hello, World!"
+    "<h1>Hello, World!<\\h1>"
 }
 
 #[get("/{url_hash}")]
 async fn redirecter(url_hash: web::Path<String>) -> impl Responder {
     let mut redirect_url = String::new();
 
-    let mut csv_file = UrlCsvFile::new(None);
+    let mut csv_file = UrlCsvFile::new(Some("./urls.csv"));
 
     // get file descriptor
     csv_file.create();
+
+    csv_file.read_url();
+
+    let mut new_url = Url::new("https://github.com/".to_string());
+
+    new_url.create_hash();
+
+    csv_file.urls.push(new_url);
+
+    csv_file.write_url();
 
     csv_file.read_url();
 

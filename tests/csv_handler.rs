@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
-    use url_shortener::csv_handler::UrlCsvFile;
-    use url_shortener::url_handler::Url;
+    use megumin::csv_handler::UrlCsvFile;
+    use megumin::url_handler::Url;
 
     #[test]
     fn reads_and_writes_data_to_file() {
