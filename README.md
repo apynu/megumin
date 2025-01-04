@@ -6,7 +6,8 @@
 
 Megumin is a url shortener for home use. It is fully customizeable and comes with a web-page that acts as user interface.
 And yes the name is based on the fictional character Megumin from the anime konosuba (highly recommended btw)
-### Features
+
+## Features
 - Fully customizeable (which open source program isn't? ^^)
 - Web interface
 - custom shortened links
@@ -14,20 +15,21 @@ And yes the name is based on the fictional character Megumin from the anime kono
 - links are stored in an easily accessible `csv` file
 - straight forward setup with the `serverconfig.toml` file
 
-### Installation
+## Installation
 There are two ways of installing Megumin
 
-##### 1. Online Installation
+### 1. Online Installation
 1. Get only the Binary from GitHub 
 2. Run the binary via `./megumin`. This will do two things:
 	1. Install the `index.html` file from GitHub and serve via the web-server
 	2. Create a `urls.csv` file 
 
-##### 2. Offline Installation
+### 2. Offline Installation
 1. Get the `megumin` binary and the `index.html` file from GitHub
 2. You have to define where you want `megumin` to look for the `index.html` file, default path in `serverconfig.toml` is: `./index.html`
 
-#### serverconfig.toml
+## Customization
+### serverconfig.toml
 The `serverconfig.toml` is the config file for `megumin` (duh).
 It contains three fields:
 1. `serverip`: which IP-address the server should use, Default: `localhost`
@@ -50,12 +52,12 @@ google,https://duckduckgo.com
 nextcloud,http://192.168.2.123:80
 ```
 
-### TODO:
+## TODO:
 - [ ] Basically everything that is discussed here xD
 - [ ] for more privacy focused people, the url and urlhash could be saved only to memory instead of to disk
 - [ ] remove `basic program flow`
 
-### basic program flow
+## basic program flow
 - give url in webview
 	- can create custom shortener link for a given url
 	- can also choose to hash (even though i don't really need that)
