@@ -1,6 +1,6 @@
 # Megumin
 
-![logo depicting konosuba character megumin in a magical circle holding her staff](https://github.com/apynu/megumin/blob/main/meta/logo.jpg?raw=true)
+![logo depicting konosuba character megumin in a magical circle holding her staff](https://github.com/apynu/megumin/blob/main/meta/logo.png?raw=true)
 
 # WARNING: NOTHING IS IMPLEMENTED YET
 
